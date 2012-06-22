@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.pe.ekxkaks.Constants;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -21,10 +23,10 @@ public class web2m {
      * @param args
      */
     public static void main(String[] args) throws Exception{
-        //Rows list = readList("17");
-        // log(list.get(3).getConvLink());
-        DetailData body = readDetail("17", "990576");
-        // log(body.toString());
+        ListData list = readList("466");
+        log(list.get(3).toString());
+        DetailData body = readDetail("17", "1001284");
+        log(body.toString());
     }
 
     private static ListData readList(String div){
@@ -120,8 +122,9 @@ public class web2m {
 
     private static DetailData readDetail(String div, String docNum){
 
-        String responseBody = post(domain + "/cafe.php?sort=1598&p1=dokkaebi&number=988739&mode=view");
+        String responseBody = post(domain + "/cafe.php?sort=1598&p1=dokkaebi&number=1001284&mode=view");
         List<String> skipTag = new ArrayList<String>();
+
         skipTag.add("height=1></td>");
         skipTag.add("preedit=");
         skipTag.add("predel=");
@@ -132,7 +135,6 @@ public class web2m {
         skipTag.add("프린트하기");
         skipTag.add("bt_reply.gif");
         skipTag.add("contents_box");
-        skipTag.add("<!--");
         skipTag.add("<div align=\"left\">");
         skipTag.add("<form ");
         skipTag.add("<input");
@@ -143,17 +145,85 @@ public class web2m {
         skipTag.add(".toggle();");
         skipTag.add("</script>");
         skipTag.add("reply_r");
-        
+
         List<String> delTag = new ArrayList<String>();
-        
+
         List<String> listTarget = readBody(responseBody, skipTag, delTag, "margin-right:10; margin-left:10;", "b_modify.gif");
 
-
+        boolean readContents1 = false;
+        boolean readReply = false;
+        String isReply = "false";
+        String Contents1 = "";
+        String Contents2 = "";
+        String Reply = "";
         DetailData data = new DetailData();
+        String[] tmp;
         // ------------------------ 컬럼 추출
-        for (String row: listTarget) {
-           log(row);
+        for (String line : listTarget) {
+            // log(":::::] "+line);
+            if (line.indexOf("margin-right:10; margin-left:10;") > -1) {
+                data.setTitle(line.substring(line.indexOf("margin-right:10; margin-left:10;") + 37, line.indexOf("</div>")));
+                // log("[" + data.getTitle() + "]");
+            }
+            if (line.indexOf("<div align=\"right\"><b>작성자 :") > -1) {
+                data.setWriter(line.substring(line.indexOf("');\" >") + 6, line.indexOf("</a></b></div>")));
+                // log("[" + data.getWriter() + "]");
+            }
+            if (line.indexOf("</a> , 입력 : ") > -1) {
+                data.setWriteDate(line.substring(line.indexOf("<span title=") + 34, line.indexOf("</span>, &nbsp;조회")));
+                // log("[" + data.getWriteDate() + "]");
+            }
+            if (line.indexOf("<!---- contents end ---->") > -1) {
+                data.setContents1(Contents1);
+                // log("["+data.getContents1()+"]");
+                readContents1 = false;
+            }
+            if (readContents1) {
+                Contents1 += line + "\n";
+            }
+            if (line.indexOf("<!---- contents start ---->") > -1) {
+                readContents1 = true;
+            }
+            if (line.indexOf("resizeImage2(this)") > -1) {
+                tmp = line.split("<img ");
+                Contents2 = tmp[0];
+                for (String tr : tmp) {
+                    if (tr.indexOf("src=\"") > -1) {
+                        Contents2 += "<img " + tr.substring(tr.indexOf("src=\""));
+                    }
+                }
+                data.setContents2(Contents2.replaceAll("</td>", "").trim());
+                // log("[" + data.getContents2() + "]");
+            }
+            if (line.indexOf("reply.gif") > -1 || line.indexOf("(ID : <a href=") > -1) { // 댓글의 시작)
+                if (!"".equals(Reply)) {
+                    data.addReply(Reply + Constants.REPLY_DELIMITER + isReply); // 한번만 등록된다.
+                    Reply = "";
+                    isReply = "false";
+                }
+            }
+            if (line.indexOf("<!-- 댓글 끝 -->") > -1) {
+                readReply = false;
+            }
+
+            if (line.indexOf("reply.gif") > -1) {
+                line = line.substring(0, line.lastIndexOf("<img src=\"images/reply.gif"));
+                isReply = "true";
+                readReply = false;
+            }
+            if (line.indexOf("(ID : <a href=") > -1) { // 새로운 컬럼의 시작
+                Reply += line.substring(line.indexOf("');\" >") + 6, line.indexOf("</a></b></font> <span"))
+                        + Constants.REPLY_DELIMITER;
+                Reply += line.substring(line.indexOf("<span title=") + 34, line.indexOf("</span>"))
+                        + Constants.REPLY_DELIMITER;
+                readReply = true;
+            } else if (readReply) {
+                Reply += line;
+            }
+
         }
+        data.addReply(Reply + Constants.REPLY_DELIMITER + isReply);
+        // log(data.toString());
         return data;
     }
 
@@ -177,7 +247,7 @@ public class web2m {
                     if (line.indexOf(tag) > -1) skip = true;
                 }
                 if (line.trim().length() < 9) skip = true;
-                //log("["+skip+"] "+ line);
+                // log("["+skip+"] "+ line);
                 if (!skip) {
                     tmp = line.trim();
                     for (String tag : delTag) {
