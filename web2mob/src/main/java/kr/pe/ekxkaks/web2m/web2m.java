@@ -5,7 +5,7 @@ import java.util.List;
 
 import kr.pe.ekxkaks.web2m.common.Commun;
 import kr.pe.ekxkaks.web2m.common.Constants;
-import kr.pe.ekxkaks.web2m.common.DetailData;
+import kr.pe.ekxkaks.web2m.common.ViewData;
 import kr.pe.ekxkaks.web2m.common.ListData;
 import kr.pe.ekxkaks.web2m.common.RowData;
 
@@ -17,13 +17,14 @@ public class web2m {
     public static void main(String[] args) throws Exception{
         Constants.load();
         ListData list = readList("17","1");
-        log(list.get(3).toString());
-        DetailData body = readDetail("1598", "1001284");
-        log(body.toString());
+        log(list.toString());
+        ViewData body = readView("1598", "1001284");
+       // log(body.toString());
     }
 
     public static ListData readList(String div,String page){
         ListData rows = new ListData();
+        log(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
         String responseBody = Commun.post(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
        
         List<String> listTarget = readBody(responseBody, Constants.listSkipTag, Constants.listDelTag, "\"board_list_line\"", "[Last]");
@@ -34,11 +35,12 @@ public class web2m {
         // ------------------------ 컬럼 추출
         //log("listTarget : "+listTarget.size());
         while (idx + 5 < listTarget.size()) {
+        	 listData = new RowData();
             //log("line cnt : " +idx);
             listData.setHead(listTarget.get(idx));
             idx++;
             tmpDate = listTarget.get(idx);
-            //log(":::::] (" +idx+")"+tmpDate);
+            log(":::::] (" +idx+")"+tmpDate);
             if (listData.getHead().indexOf("공지]") == -1) {
                 idx++;
                 listData.setWriter(listTarget.get(idx));
@@ -89,7 +91,7 @@ public class web2m {
         return rows;
     }
 
-    private static DetailData readDetail(String div, String docNum){
+    public static ViewData readView(String div, String docNum){
 
         //http://cafe.gongdong.or.kr/cafe.php?sort=1598&p1=dokkaebi&number=1001284&mode=view
         String responseBody = Commun.post(Constants.domain + "/cafe.php?sort="+div+"&p1=dokkaebi&number="+docNum+"&mode=view");
@@ -102,7 +104,7 @@ public class web2m {
         String Contents1 = "";
         String Contents2 = "";
         String Reply = "";
-        DetailData data = new DetailData();
+        ViewData data = new ViewData();
         String[] tmp;
         // ------------------------ 컬럼 추출
         for (String line : listTarget) {
@@ -169,7 +171,7 @@ public class web2m {
 
         }
         data.addReply(Reply + Constants.REPLY_DELIMITER + isReply);
-        // log(data.toString());
+        log(data.toString());
         return data;
     }
 

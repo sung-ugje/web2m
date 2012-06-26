@@ -5,8 +5,11 @@ import java.util.Date;
 import java.util.Locale;
 
 import kr.pe.ekxkaks.web2m.web2m;
+import kr.pe.ekxkaks.web2m.common.Constants;
 import kr.pe.ekxkaks.web2m.common.ListData;
 import kr.pe.ekxkaks.web2m.common.RequestQuery;
+import kr.pe.ekxkaks.web2m.common.StringUtil;
+import kr.pe.ekxkaks.web2m.common.ViewData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Handles requests for the application home page.
@@ -41,7 +43,7 @@ public class Web2MController {
      * Simply selects the home view to render by returning its name.
      */
     @RequestMapping(value = "/menu.dkb")
-    public String menu(@RequestParam RequestQuery req, Model model) {
+    public String menu(RequestQuery req, Model model) {
         
         return "menu";
     }
@@ -50,12 +52,21 @@ public class Web2MController {
      * Simply selects the home view to render by returning its name.
      */
     @RequestMapping(value = "/list.dkb")
-    public String list(@RequestParam RequestQuery req, Model model) {
-        
-        ListData list = web2m.readList(req.getSort(),req.getPage());
+    public String list(RequestQuery req, Model model) {
+    	Constants.load();
+        ListData list = web2m.readList(req.getSort(),StringUtil.nvl(req.getPage(),"1"));
 
         model.addAttribute("list", list );
         return "list";
+    }
+    @RequestMapping(value = "/view.dkb")
+    public String view(RequestQuery req, Model model) {
+    	Constants.load();
+    	ViewData view = web2m.readView(req.getSort(),StringUtil.nvl(req.getNumber(),"1"));
+    	
+
+        model.addAttribute("view", view );
+        return "view";
     }
     
 }

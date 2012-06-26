@@ -11,7 +11,7 @@ public class RowData {
     boolean reply;
     int viweCnt;
     int replyCnt;
-
+   
     public RowData(){
 
     }
@@ -99,7 +99,7 @@ public class RowData {
     @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
-        builder.append("doc [head=");
+        builder.append("RowData [head=");
         builder.append(head);
         builder.append(", title=");
         builder.append(title);
@@ -142,22 +142,22 @@ public class RowData {
     }
 
     // http://cafe.gongdong.or.kr/cafe.php?sort=17&p1=dokkaebi&number=999341&mode=view
-    public String getConvLink(){
+    public String getConvViewLink(){
         String rtn = link.substring(link.indexOf('?'));
-        String[] aa = rtn.split("&");
-        String[] bb;
-        String vv = "";
+        String[] tmpItems = rtn.split("&");
+        String[] tmpArr;
+        String queryString = "";
 
-        for (String a : aa) {
+        for (String a : tmpItems) {
             if (a.indexOf('=') > -1) {
-                bb = a.split("=");
-                if (bb.length > 1) {
-                    vv += a + "&";
+                tmpArr = a.split("=");
+                if (tmpArr.length > 1) {
+                    queryString += a + "&";
                 }
             }
         }
 
-        rtn = link.substring(0, link.indexOf('?')) + vv;
+        rtn = Constants.viewSvl + queryString;
         return rtn.substring(0,rtn.length()-1);
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DetailData {
+public class ViewData {
     String title;
     String writer;
     String writeDate;

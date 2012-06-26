@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	도깨비어린이집 
 </h1>
 <ul>
 <li><a href="/list.dkb?p1=dokkaebi&sort=17">공지사항</a>
@@ -15,8 +15,7 @@
 <li><a href="/list.dkb?p1=dokkaebi&sort=1592">깨비네-소모임방</a>
 <li><a href="/list.dkb?p1=dokkaebi&sort=1590">깨비네-졸업생</a>
 <li><a href="/list.dkb?p1=dokkaebi&sort=468">자유게시판</a>
-<li><a href="/list.dkb?">가입문의(대기자의 방)</a>
+<li><a href="/list.dkb?p1=dokkaebi&sort=468">가입문의(대기자의 방)</a>
 </ul>
-<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>
