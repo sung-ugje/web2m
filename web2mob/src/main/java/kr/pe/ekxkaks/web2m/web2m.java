@@ -10,7 +10,6 @@ import kr.pe.ekxkaks.web2m.common.ListData;
 import kr.pe.ekxkaks.web2m.common.RowData;
 
 public class web2m {
-    static String domain = "http://cafe.gongdong.or.kr";
 
     /**
      * @param args
@@ -23,9 +22,9 @@ public class web2m {
         log(body.toString());
     }
 
-    private static ListData readList(String div,String page){
+    public static ListData readList(String div,String page){
         ListData rows = new ListData();
-        String responseBody = Commun.post(domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
+        String responseBody = Commun.post(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
        
         List<String> listTarget = readBody(responseBody, Constants.listSkipTag, Constants.listDelTag, "\"board_list_line\"", "[Last]");
         int idx = 0;
@@ -93,8 +92,7 @@ public class web2m {
     private static DetailData readDetail(String div, String docNum){
 
         //http://cafe.gongdong.or.kr/cafe.php?sort=1598&p1=dokkaebi&number=1001284&mode=view
-        log(domain + "/cafe.php?sort="+div+"&p1=dokkaebi&number="+docNum+"&mode=view");
-        String responseBody = Commun.post(domain + "/cafe.php?sort="+div+"&p1=dokkaebi&number="+docNum+"&mode=view");
+        String responseBody = Commun.post(Constants.domain + "/cafe.php?sort="+div+"&p1=dokkaebi&number="+docNum+"&mode=view");
 
         List<String> listTarget = readBody(responseBody, Constants.viewSkipTag, Constants.viewDelTag, "margin-right:10; margin-left:10;", "b_modify.gif");
 

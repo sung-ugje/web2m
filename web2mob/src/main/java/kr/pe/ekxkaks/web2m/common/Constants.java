@@ -7,6 +7,8 @@ import java.util.List;
 public class Constants {
 
 	public static final String REPLY_DELIMITER = "↕";
+
+	public static String domain = "http://cafe.gongdong.or.kr";
 	
 	public static List<String> listSkipTag = new ArrayList<String>();
     public static List<String> listDelTag = new ArrayList<String>();
