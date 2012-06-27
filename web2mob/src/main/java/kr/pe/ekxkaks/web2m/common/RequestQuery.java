@@ -12,6 +12,7 @@ public class RequestQuery {
     String p3;
     String number;
     String mode;
+    String div;
 
     public String getSort(){
         return sort;
@@ -132,6 +133,14 @@ public class RequestQuery {
         rtn += "&number=" + number;
         rtn += "&mode=" + mode;
         return rtn;
+    }
+
+    public String getDiv(){
+        return div;
+    }
+
+    public void setDiv(String div){
+        this.div = div;
     }
 
 }

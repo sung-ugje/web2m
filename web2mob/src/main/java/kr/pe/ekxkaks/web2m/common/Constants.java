@@ -8,7 +8,8 @@ public class Constants {
 
 	public static final String REPLY_DELIMITER = "↕";
 
-	public static String domain = "http://cafe.gongdong.or.kr";
+    public static String domain = "http://cafe.gongdong.or.kr";
+    public static String GDdomain = "http://www.gongdong.or.kr";
 	public static String listSvl = "/list.dkb";
 	public static String viewSvl = "/view.dkb";
 	

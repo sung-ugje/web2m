@@ -18,25 +18,24 @@
 <body>
 
 <div data-role="page">
-	<div data-role="header"  data-position="fixed">
-		<h1>
-			 ${view.title }
-		</h1>
-		${view.writer}
+	<div data-role="header"  data-position="fixed"  data-theme="c">
+		<a href="list.dkb?p1=dokkaebi&sort=${sort}" data-icon="back">목록</a>
+		<h3> ${view.title }</h3>
 	</div>
-	<div data-role="content">
+	<div data-role="content"  data-theme="c">
+	<p>
 	${view.contents1 }
+	</p><p>
 	${view.contents2 }
+	</p>
 	<c:forEach items="${view.reply}" var="reply">
 	<div class="reply"><div class="tit">${reply.writer} - ${reply.writeDate}</div><br/>
 	${reply.contents1}
 	</div>
 	</c:forEach>
 	</div>
-	<div data-role="footer"  data-position="fixed">
-	<h4>
-		도깨비어린이집 
-	</h4>
+	<div data-role="footer"  data-theme="d">
+		<h6>${view.writer} (${view.writeDate})</h6>
 	</div>
 </div>
 </body>

@@ -14,29 +14,33 @@
 <body>
 
 <div data-role="page">
-	<div data-role="header"  data-position="fixed">
-		<h1>
-			도깨비어린이집 
-		</h1>
+	<div data-role="header"  data-position="fixed" data-theme="d">
+		<h2>도깨비 어린이집</h2>
+		<a href="/menu.dkb" data-icon="back">메인</a>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="/list.dkb?p1=dokkaebi&sort=17">공지</a>
+				<li><a href="/list.dkb?p1=dokkaebi&sort=1598">아빠모임</a>
+				<li><a href="/list.dkb?p1=dokkaebi&sort=1592">소모임방</a>
+				<li><a href="/list.dkb?p1=dokkaebi&sort=1590">졸업생</a>
+				<li><a href="/list.dkb?p1=dokkaebi&sort=468">게시판</a>
+			</ul>
+		</div>
 	</div>
 	<div data-role="content">	
-		<ul>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=17">공지사항</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=1598">깨비네-아빠모임</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=1592">깨비네-소모임방</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=1590">깨비네-졸업생</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=468">자유게시판</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=468">가입문의(대기자의 방)</a>
-		</ul>
-		<ul data-role="listview" data-inset="true" data-filter="true">
-		<c:forEach items="${list }" var="row">
-		<li><a href="${row.convViewLink }" >${row.title}</a></li>
-		</c:forEach>	
-		</ul>
+		<div class="content-primary">
+			<ul data-role="listview" data-inset="true" data-filter="true" data-theme="c"  data-theme="d" data-count-theme="b">
+			<c:forEach items="${list }" var="row"> 
+			<li><h3><a href="${row.convViewLink }" >${row.title}<span class="ui-li-count">${row.viweCnt}</span></a></h3>
+				<p>작성자 : ${row.writer} (작성일 : ${row.writeDate})</p>
+			</li> 
+			</c:forEach>	
+			</ul> 
+		</div>
 	</div>
-	<div data-role="footer"  data-position="fixed">
+	<div data-role="footer" data-theme="d">
 	<h4>
-		도깨비어린이집 
+		(031-969-3412) 경기도 고양시 덕양구 원흥동 410-6
 	</h4>
 	</div>
 </div>

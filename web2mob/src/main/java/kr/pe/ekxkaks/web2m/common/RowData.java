@@ -143,22 +143,42 @@ public class RowData {
 
     // http://cafe.gongdong.or.kr/cafe.php?sort=17&p1=dokkaebi&number=999341&mode=view
     public String getConvViewLink(){
-        String rtn = link.substring(link.indexOf('?'));
-        String[] tmpItems = rtn.split("&");
-        String[] tmpArr;
-        String queryString = "";
+        String rtn = "";
+        if(link.indexOf("http:") > -1) {
+            rtn = link.substring(link.indexOf('?'));
+            String[] tmpItems = rtn.split("&");
+            String[] tmpArr;
+            String queryString = "";
 
-        for (String a : tmpItems) {
-            if (a.indexOf('=') > -1) {
-                tmpArr = a.split("=");
-                if (tmpArr.length > 1) {
-                    queryString += a + "&";
+            for (String a : tmpItems) {
+                if (a.indexOf('=') > -1) {
+                    tmpArr = a.split("=");
+                    if (tmpArr.length > 1) {
+                        queryString += a + "&";
+                    }
                 }
             }
+            rtn = Constants.viewSvl + queryString;
+            rtn = rtn.substring(0,rtn.length()-1) + "&div=board";
+        } else {
+            rtn = link.substring(link.indexOf('?'));
+            String[] tmpItems = rtn.split("&");
+            String[] tmpArr;
+            String queryString = "";
+
+            for (String a : tmpItems) {
+                if (a.indexOf('=') > -1) {
+                    tmpArr = a.split("=");
+                    if (tmpArr.length > 1) {
+                        queryString += a + "&";
+                    }
+                }
+            }
+            rtn = Constants.viewSvl + queryString;
+            rtn = rtn.substring(0,rtn.length()-1);
         }
 
-        rtn = Constants.viewSvl + queryString;
-        return rtn.substring(0,rtn.length()-1);
+        return rtn;
     }
 
 }

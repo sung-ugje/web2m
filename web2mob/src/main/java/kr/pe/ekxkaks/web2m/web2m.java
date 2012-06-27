@@ -11,17 +11,7 @@ import kr.pe.ekxkaks.web2m.common.RowData;
 
 public class web2m {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) throws Exception{
-        Constants.load();
-        ListData list = readList("17","1");
-        log(list.toString());
-        ViewData body = readView("1598", "1001284");
-       // log(body.toString());
-    }
-
+  
     public static ListData readList(String div,String page){
         ListData rows = new ListData();
         log(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
@@ -40,7 +30,7 @@ public class web2m {
             listData.setHead(listTarget.get(idx));
             idx++;
             tmpDate = listTarget.get(idx);
-            log(":::::] (" +idx+")"+tmpDate);
+            //log(":::::] (" +idx+")"+tmpDate);
             if (listData.getHead().indexOf("공지]") == -1) {
                 idx++;
                 listData.setWriter(listTarget.get(idx));
@@ -91,10 +81,14 @@ public class web2m {
         return rows;
     }
 
-    public static ViewData readView(String div, String docNum){
+    public static ViewData readView(String div,String sort, String docNum){
 
         //http://cafe.gongdong.or.kr/cafe.php?sort=1598&p1=dokkaebi&number=1001284&mode=view
-        String responseBody = Commun.post(Constants.domain + "/cafe.php?sort="+div+"&p1=dokkaebi&number="+docNum+"&mode=view");
+        String domain = Constants.domain ;
+        if (!div.equals("cafe")){
+            domain = Constants.GDdomain ;
+        }
+        String responseBody = Commun.post(domain+ "/"+div+".php?sort="+sort+"&p1=dokkaebi&number="+docNum+"&mode=view");
 
         List<String> listTarget = readBody(responseBody, Constants.viewSkipTag, Constants.viewDelTag, "margin-right:10; margin-left:10;", "b_modify.gif");
 
@@ -108,7 +102,7 @@ public class web2m {
         String[] tmp;
         // ------------------------ 컬럼 추출
         for (String line : listTarget) {
-            //log(":::::] "+line);
+            log(":::::] "+line);
             if (line.indexOf("margin-right:10; margin-left:10;") > -1) {
                 data.setTitle(line.substring(line.indexOf("margin-right:10; margin-left:10;") + 37, line.indexOf("</div>")));
                 log("[" + data.getTitle() + "]");
@@ -118,7 +112,12 @@ public class web2m {
                 log("[" + data.getWriter() + "]");
             }
             if (line.indexOf("</a> , 입력 : ") > -1) {
-                data.setWriteDate(line.substring(line.indexOf("<span title=") + 34, line.indexOf("</span>, &nbsp;조회")));
+                if("board".equals(div)){
+                    data.setWriteDate(line.substring(line.indexOf("입력 : "), line.indexOf(", &nbsp;조회")));
+                } else {
+                    data.setWriteDate(line.substring(line.indexOf("<span title=") + 34, line.indexOf("</span>, &nbsp;조회")));    
+                }
+                
                 log("[" + data.getWriteDate() + "]");
             }
             if (line.indexOf("<!---- contents end ---->") > -1) {
