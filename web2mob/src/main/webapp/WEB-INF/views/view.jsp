@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-	<style>
+	<style type='text/css'>
 	.reply{border:solid 1px #ccc;margin:5px;padding:10px}
 	.reply .tit{border:solid 1px #ddd;margin:1px;padding:2px;background-color:#abe}
 	</style>

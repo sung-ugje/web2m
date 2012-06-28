@@ -143,6 +143,7 @@ public class RowData {
 
     // http://cafe.gongdong.or.kr/cafe.php?sort=17&p1=dokkaebi&number=999341&mode=view
     public String getConvViewLink(){
+    	if(Constants.isDebug) System.out.println("@@@@]" + link);
         String rtn = "";
         if(link.indexOf("http:") > -1) {
             rtn = link.substring(link.indexOf('?'));

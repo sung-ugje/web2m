@@ -12,6 +12,7 @@ public class Constants {
     public static String GDdomain = "http://www.gongdong.or.kr";
 	public static String listSvl = "/list.dkb";
 	public static String viewSvl = "/view.dkb";
+	public static boolean isDebug = false;
 	
 	public static List<String> listSkipTag = new ArrayList<String>();
     public static List<String> listDelTag = new ArrayList<String>();

@@ -62,7 +62,6 @@ public class Web2MController {
     @RequestMapping(value = "/view.dkb")
     public String view(RequestQuery req, Model model) {
     	Constants.load();
-    	System.out.println("\n\n\ndiv : "+StringUtil.nvl(req.getDiv(),"cafe")+" , sort : "+req.getSort()+", number : "+StringUtil.nvl(req.getNumber(),"1") + "\n\n\n\n\n\n\n\n");
     	ViewData view = web2m.readView(StringUtil.nvl(req.getDiv(),"cafe"),req.getSort(),StringUtil.nvl(req.getNumber(),"1"));
     	
     	model.addAttribute("sort", req.getSort() );

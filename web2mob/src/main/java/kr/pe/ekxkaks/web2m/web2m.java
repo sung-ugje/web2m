@@ -14,31 +14,34 @@ public class web2m {
   
     public static ListData readList(String div,String page){
         ListData rows = new ListData();
-        log(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
         String responseBody = Commun.post(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
        
         List<String> listTarget = readBody(responseBody, Constants.listSkipTag, Constants.listDelTag, "\"board_list_line\"", "[Last]");
+        for(String ttt : listTarget){
+        	log(ttt);
+        }
         int idx = 0;
         RowData listData = new RowData();
         String tmpDate = "";
         int start, end, tmpIdx;
         // ------------------------ 컬럼 추출
-        //log("listTarget : "+listTarget.size());
         while (idx + 5 < listTarget.size()) {
         	 listData = new RowData();
-            //log("line cnt : " +idx);
             listData.setHead(listTarget.get(idx));
             idx++;
             tmpDate = listTarget.get(idx);
-            //log(":::::] (" +idx+")"+tmpDate);
+            if (Constants.isDebug) log(":::::] (" +idx+")"+tmpDate);
             if (listData.getHead().indexOf("공지]") == -1) {
                 idx++;
                 listData.setWriter(listTarget.get(idx));
+                if (Constants.isDebug) log(":::::::::] (" +idx+")"+listTarget.get(idx));
             }
             idx++;
             listData.setWriteDate(listTarget.get(idx));
+            if (Constants.isDebug) log(":::::::::] (" +idx+")"+listTarget.get(idx));
             idx++;
             listData.setViweCnt(listTarget.get(idx));
+            if (Constants.isDebug) log(":::::::::] (" +idx+")"+listTarget.get(idx));
             idx++;
             if (tmpDate.indexOf("href=\"") > -1 && tmpDate.indexOf("javascript:ui(") == -1) {
                 listData.setLink(tmpDate.substring(tmpDate.indexOf("href=\"") + 6, tmpDate.indexOf("view\"") + 4));
@@ -102,14 +105,14 @@ public class web2m {
         String[] tmp;
         // ------------------------ 컬럼 추출
         for (String line : listTarget) {
-            log(":::::] "+line);
+        	if (Constants.isDebug) log(":::::] "+line);
             if (line.indexOf("margin-right:10; margin-left:10;") > -1) {
                 data.setTitle(line.substring(line.indexOf("margin-right:10; margin-left:10;") + 37, line.indexOf("</div>")));
-                log("[" + data.getTitle() + "]");
+                if (Constants.isDebug) log("[" + data.getTitle() + "]");
             }
             if (line.indexOf("<div align=\"right\"><b>작성자 :") > -1) {
                 data.setWriter(line.substring(line.indexOf("');\" >") + 6, line.indexOf("</a></b></div>")));
-                log("[" + data.getWriter() + "]");
+                if (Constants.isDebug) log("[" + data.getWriter() + "]");
             }
             if (line.indexOf("</a> , 입력 : ") > -1) {
                 if("board".equals(div)){
@@ -118,11 +121,11 @@ public class web2m {
                     data.setWriteDate(line.substring(line.indexOf("<span title=") + 34, line.indexOf("</span>, &nbsp;조회")));    
                 }
                 
-                log("[" + data.getWriteDate() + "]");
+                if (Constants.isDebug) log("[" + data.getWriteDate() + "]");
             }
             if (line.indexOf("<!---- contents end ---->") > -1) {
                 data.setContents1(Contents1);
-                // log("["+data.getContents1()+"]");
+                if (Constants.isDebug) log("["+data.getContents1()+"]");
                 readContents1 = false;
             }
             if (readContents1) {
@@ -140,7 +143,7 @@ public class web2m {
                     }
                 }
                 data.setContents2(Contents2.replaceAll("</td>", "").trim());
-                // log("[" + data.getContents2() + "]");
+                if (Constants.isDebug) log("[" + data.getContents2() + "]");
             }
             if (line.indexOf("reply.gif") > -1 || line.indexOf("(ID : <a href=") > -1) {
                 if (!"".equals(Reply)) {
@@ -159,9 +162,9 @@ public class web2m {
                 readReply = false;
             }
             if (line.indexOf("(ID : <a href=") > -1) { // 새로운 컬럼의 시작
-                Reply += line.substring(line.indexOf("');\" >") + 6, line.indexOf("</a></b></font> <span"))
+                Reply += line.substring(line.indexOf("');\" >") + 6, line.indexOf("</a>",line.indexOf("');\" >") + 6))
                         + Constants.REPLY_DELIMITER;
-                Reply += line.substring(line.indexOf("<span title=") + 34, line.indexOf("</span>"))
+                Reply += line.substring(line.indexOf("<span title=") + 34, line.indexOf("</span>",line.indexOf("<span title=") + 34))
                         + Constants.REPLY_DELIMITER;
                 readReply = true;
             } else if (readReply) {
@@ -170,7 +173,6 @@ public class web2m {
 
         }
         data.addReply(Reply + Constants.REPLY_DELIMITER + isReply);
-        log(data.toString());
         return data;
     }
 
@@ -194,14 +196,14 @@ public class web2m {
                     if (line.indexOf(tag) > -1) skip = true;
                 }
                 if (line.trim().length() < 9) skip = true;
-                // log("["+skip+"] "+ line);
+                //log("["+skip+"] "+ line);
                 if (!skip) {
                     tmp = line.trim();
                     for (String tag : delTag) {
                         
                         tmp = tmp.replaceAll(tag, "");
                     }
-                    rtnList.add(tmp);
+                    if(tmp.trim().length() > 0)rtnList.add(tmp);
                 }
 
                 if (line.indexOf(end) > -1) {
