@@ -14,15 +14,6 @@
 	<div data-role="header"  data-position="fixed" data-theme="d">
 		<h2>화정 도깨비어린이집</h2>
 	</div>
-	<div data-role="navbar">
-	<ul>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=17">공지</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=1598">아빠모임</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=1592">소모임방</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=1590">졸업생</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=468">게시판</a>
-	</ul>
-	</div><!-- /navbar -->
 	<div data-role="content" data-theme="d">
 		<ul data-role="listview" data-inset="true" data-filter="false">
 		<li><a href="/list.dkb?p1=dokkaebi&sort=17">공지사항</a>

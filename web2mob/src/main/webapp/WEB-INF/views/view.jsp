@@ -10,17 +10,13 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-	<style type='text/css'>
-	.reply{border:solid 1px #ccc;margin:5px;padding:10px}
-	.reply .tit{border:solid 1px #ddd;margin:1px;padding:2px;background-color:#abe}
-	</style>
 </head>
 <body>
 
 <div data-role="page">
 	<div data-role="header"  data-position="fixed"  data-theme="c">
 		<a href="list.dkb?p1=dokkaebi&sort=${sort}" data-icon="back">목록</a>
-		<h3> ${view.title }</h3>
+		<h5> ${view.title }</h5>
 	</div>
 	<div data-role="content"  data-theme="c">
 	<p>
@@ -29,8 +25,10 @@
 	${view.contents2 }
 	</p>
 	<c:forEach items="${view.reply}" var="reply">
-	<div class="reply"><div class="tit">${reply.writer} - ${reply.writeDate}</div><br/>
-	${reply.contents1}
+	<div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="c">
+	<h3>${reply.writer}</h3>
+	<p>${reply.contents1}</p>
+	<p style="text-align:right">-- ${reply.writeDate}</p>
 	</div>
 	</c:forEach>
 	</div>

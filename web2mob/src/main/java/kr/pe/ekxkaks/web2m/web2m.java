@@ -17,9 +17,7 @@ public class web2m {
         String responseBody = Commun.post(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
        
         List<String> listTarget = readBody(responseBody, Constants.listSkipTag, Constants.listDelTag, "\"board_list_line\"", "[Last]");
-        for(String ttt : listTarget){
-        	log(ttt);
-        }
+
         int idx = 0;
         RowData listData = new RowData();
         String tmpDate = "";

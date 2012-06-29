@@ -20,8 +20,8 @@
 		<div data-role="navbar">
 			<ul>
 				<li><a href="/list.dkb?p1=dokkaebi&sort=17">공지</a>
-				<li><a href="/list.dkb?p1=dokkaebi&sort=1598">아빠모임</a>
-				<li><a href="/list.dkb?p1=dokkaebi&sort=1592">소모임방</a>
+				<li><a href="/list.dkb?p1=dokkaebi&sort=1598">아빠</a>
+				<li><a href="/list.dkb?p1=dokkaebi&sort=1592">소모임</a>
 				<li><a href="/list.dkb?p1=dokkaebi&sort=1590">졸업생</a>
 				<li><a href="/list.dkb?p1=dokkaebi&sort=468">게시판</a>
 			</ul>
@@ -31,16 +31,16 @@
 		<div class="content-primary">
 			<ul data-role="listview" data-inset="true" data-filter="true" data-theme="c"  data-theme="d" data-count-theme="b">
 			<c:forEach items="${list }" var="row"> 
-			<li><h3><a href="${row.convViewLink }" >${row.title}<span class="ui-li-count">${row.viweCnt}</span></a></h3>
+			<li><h3><a href="${row.convViewLink }" >${row.title} [${row.replyCnt}]<span class="ui-li-count">${row.viweCnt}</span></a></h3>
 				<p>작성자 : ${row.writer} (작성일 : ${row.writeDate})</p>
 			</li> 
 			</c:forEach>	
 			</ul> 
 		</div>
 	</div>
-	<div data-role="footer" data-theme="d">
+	<div data-role="footer" data-theme="a">
 	<h4>
-		(031-969-3412) 경기도 고양시 덕양구 원흥동 410-6
+		<a href="tel:0319693412">(031-969-3412)</a> 경기도 고양시 덕양구 원흥동 410-6
 	</h4>
 	</div>
 </div>
