@@ -17,11 +17,12 @@
 	<div data-role="content" data-theme="d">
 		<ul data-role="listview" data-inset="true" data-filter="false">
 		<li><a href="/list.dkb?p1=dokkaebi&sort=17">공지사항</a>
+		<li><a href="/list.dkb?p1=dokkaebi&sort=466">날적이 수다방</a>
 		<li><a href="/list.dkb?p1=dokkaebi&sort=1598">깨비네-아빠모임</a>
 		<li><a href="/list.dkb?p1=dokkaebi&sort=1592">깨비네-소모임방</a>
 		<li><a href="/list.dkb?p1=dokkaebi&sort=1590">깨비네-졸업생</a>
 		<li><a href="/list.dkb?p1=dokkaebi&sort=468">자유게시판</a>
-		<li><a href="/list.dkb?p1=dokkaebi&sort=468">가입문의(대기자의 방)</a>
+		<li><a href="/list.dkb?p1=dokkaebi&sort=1595">가입문의(대기자의 방)</a>
 		</ul>
 	</div>
 	<div data-role="footer"  data-position="fixed" data-theme="d">

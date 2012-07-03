@@ -20,10 +20,10 @@
 		<div data-role="navbar">
 			<ul>
 				<li><a href="/list.dkb?p1=dokkaebi&sort=17">공지</a>
+				<li><a href="/list.dkb?p1=dokkaebi&sort=466">수다방</a>
 				<li><a href="/list.dkb?p1=dokkaebi&sort=1598">아빠</a>
 				<li><a href="/list.dkb?p1=dokkaebi&sort=1592">소모임</a>
 				<li><a href="/list.dkb?p1=dokkaebi&sort=1590">졸업생</a>
-				<li><a href="/list.dkb?p1=dokkaebi&sort=468">게시판</a>
 			</ul>
 		</div>
 	</div>
