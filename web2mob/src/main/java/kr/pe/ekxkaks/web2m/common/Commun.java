@@ -19,13 +19,14 @@ public class Commun {
 
     
     public static String post(String url){
+        if (Constants.isDebug) System.out.println("Post Url : "+url);
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost post = new HttpPost(url); //
         ResponseHandler<String> responseHandler = new BasicResponseHandler();
         List<NameValuePair> queryParm = new ArrayList<NameValuePair>();
         String rtnBody = "";
 
-        try {
+        try { 
             post.setEntity(new UrlEncodedFormEntity(queryParm, "UTF-8"));
             rtnBody = httpclient.execute(post, responseHandler);
         } catch (UnsupportedEncodingException ex) {
@@ -37,6 +38,7 @@ public class Commun {
         } finally {
             httpclient.getConnectionManager().shutdown();
         }
+        if (Constants.isDebug) System.out.println(rtnBody);
         return rtnBody;
     }
 }
