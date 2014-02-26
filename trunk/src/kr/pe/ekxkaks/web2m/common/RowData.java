@@ -2,16 +2,39 @@ package kr.pe.ekxkaks.web2m.common;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * 리스트에 표시되는 하나의 정보를 담고잇는 VO
+ * @author ekxkaks
+ *
+ */
 public class RowData {
     String head;
     String title;
     String link;
+    /**
+     * 작성자
+     */
     String writer;
+    /**
+     * 작성일
+     */
     String writeDate;
+    /**
+     * 공지여부
+     */
     boolean notice;
     boolean nuovo;
+    /**
+     * 답글여부
+     */
     boolean reply;
+    /**
+     * 읽은 수
+     */
     int viweCnt;
+    /**
+     * 댓글 수
+     */
     int replyCnt;
    
     public RowData(){
