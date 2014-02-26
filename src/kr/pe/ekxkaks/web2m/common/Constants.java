@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Web to mobile 에서 사용하는 상수
+ * @author ekxkaks
+ *
+ */
 public class Constants {
 
 	public static final String REPLY_DELIMITER = "↕";
@@ -19,6 +24,9 @@ public class Constants {
     public static List<String> viewSkipTag = new ArrayList<String>();
     public static List<String> viewDelTag = new ArrayList<String>();
 
+    /**
+     * 상수에 초기값을 로딩한다.
+     */
     public static void load(){
      listSkipTag.add("<td");
      listSkipTag.add("</tr");

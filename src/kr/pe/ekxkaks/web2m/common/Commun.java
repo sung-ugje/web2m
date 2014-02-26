@@ -12,6 +12,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 public class Commun {
 
@@ -26,6 +27,7 @@ public class Commun {
 		try {
 			post.setEntity(new UrlEncodedFormEntity(queryParm, "UTF-8"));
 			response = httpclient.execute(post);
+			rtnBody = EntityUtils.toString(response.getEntity());
 		} catch (UnsupportedEncodingException ex) {
 			ex.printStackTrace();
 		} catch (ClientProtocolException ex) {

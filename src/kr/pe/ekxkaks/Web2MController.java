@@ -18,8 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 /**
- * Handles requests for the application home page.
+ * 웹 화면을 모바일 페이지로 변경해주는 컨트롤러
+ * 
+ * @author ekxkaks
+ *
  */
 @Controller
 public class Web2MController {
@@ -40,7 +44,7 @@ public class Web2MController {
         return "home";
     }
     /**
-     * Simply selects the home view to render by returning its name.
+     * 기본 메뉴 페이지를 호출한다.
      */
     @RequestMapping(value = "/menu.dkb")
     public String menu(RequestQuery req, Model model) {
@@ -49,7 +53,7 @@ public class Web2MController {
     }
     
     /**
-     * Simply selects the home view to render by returning its name.
+     * 지정한 게시판의 글목록을 읽어와서 반환한다.
      */
     @RequestMapping(value = "/list.dkb")
     public String list(RequestQuery req, Model model) {
@@ -59,6 +63,9 @@ public class Web2MController {
         model.addAttribute("list", list );
         return "list";
     }
+    /**
+     * 지정한 글의 내용을 읽어와서 반환한다.
+     */
     @RequestMapping(value = "/view.dkb")
     public String view(RequestQuery req, Model model) {
     	Constants.load();
