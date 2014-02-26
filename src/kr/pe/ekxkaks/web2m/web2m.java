@@ -9,12 +9,23 @@ import kr.pe.ekxkaks.web2m.common.ViewData;
 import kr.pe.ekxkaks.web2m.common.ListData;
 import kr.pe.ekxkaks.web2m.common.RowData;
 
+/**
+ * 웹에서 지정한 페이지를 읽어오고 결과를 분서하는등 대부분의 처리가 일어난다.
+ * @author ekxkaks
+ *
+ */
 public class web2m {
 
   
-    public static ListData readList(String div,String page){
+    /**
+     * 리스트를 불러와서 파싱한 후 결과를 {@link ListData}형태로 반환한다.
+     * @param sort 게시판 번호
+     * @param page 페이지
+     * @return
+     */
+    public static ListData readList(String sort,String page){
         ListData rows = new ListData();
-        String responseBody = Commun.post(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + div);
+        String responseBody = Commun.post(Constants.domain + "/cafe.php?p1=dokkaebi&page="+page+"&sort=" + sort);
        
         List<String> listTarget = readBody(responseBody, Constants.listSkipTag, Constants.listDelTag, "\"board_list_line\"", "[Last]");
 
@@ -82,6 +93,13 @@ public class web2m {
         return rows;
     }
 
+    /**
+     * 게시판의 글을 읽어와서 파싱한후 결과를 반환한다.
+     * @param div 게시판 구분
+     * @param sort 게시판 번호
+     * @param docNum 글번호
+     * @return
+     */
     public static ViewData readView(String div,String sort, String docNum){
 
         //http://cafe.gongdong.or.kr/cafe.php?sort=1598&p1=dokkaebi&number=1001284&mode=view
@@ -129,7 +147,7 @@ public class web2m {
             if (readContents1) {
                 Contents1 += line + "\n";
             }
-            if (line.indexOf("<!---- contents start ---->") > -1) {
+            if (line.indexOf("<!---- contents start 본문 표시 부분 DJ ---->") > -1) {
                 readContents1 = true;
             }
             if (line.indexOf("resizeImage2(this)") > -1) {
@@ -174,6 +192,16 @@ public class web2m {
         return data;
     }
 
+    /**
+     * HTML 을 읽어와서 분석하여 리스트로 반환한다.
+     * 라인단위로 HTML 을 읽어서 가공후 결과를 반환한다.
+     * @param responseBody 결과로 받은 HTML 문자열
+     * @param skipTag 지정한 태그가 포함된 라인을 무시한다.
+     * @param delTag 지정한 테그는 삭제 후 해당라인을 반환한다. 
+     * @param start 라인분석을 시작하기 위한 시작 지시문자열 
+     * @param end 라인분석을 종료하기 위한 종료 지시문자열
+     * @return
+     */
     private static List<String> readBody(String responseBody, List<String> skipTag, List<String> delTag, String start,
             String end){
         List<String> rtnList = new ArrayList<String>();
@@ -214,6 +242,6 @@ public class web2m {
     }
 
     static void log(String msg){
-        System.out.println(msg);
+    	System.out.println(msg);
     }
 }
