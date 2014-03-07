@@ -16,7 +16,7 @@ import org.apache.http.util.EntityUtils;
 
 /**
  * 통신부분을 담당하는 클래스.
- * @author ekxkaks
+ * @author 다타만
  *
  */
 public class Commun {
