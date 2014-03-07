@@ -21,6 +21,11 @@ import org.apache.http.util.EntityUtils;
  */
 public class Commun {
 
+	/**
+	 * 지정한 url 로 http Post 호출을 수행한다. 
+	 * @param url post 보낼 url
+	 * @return
+	 */
 	public static String post(String url) {
 		if (Constants.isDebug)
 			System.out.println("Post Url : " + url);
