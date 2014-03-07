@@ -14,6 +14,11 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+/**
+ * 통신부분을 담당하는 클래스.
+ * @author ekxkaks
+ *
+ */
 public class Commun {
 
 	public static String post(String url) {
