@@ -16,6 +16,9 @@ import org.apache.http.util.EntityUtils;
 
 public class Commun {
 
+	/**
+	 * 지정한 URL 로 POST 메소드를 호출한다.
+	 */
 	public static String post(String url) {
 		if (Constants.isDebug)
 			System.out.println("Post Url : " + url);
